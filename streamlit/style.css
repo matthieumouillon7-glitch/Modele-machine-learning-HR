@@ -1,0 +1,739 @@
+/*
+#les_règles_de_style_css */
+
+/* Barre supérieure et barre latérale */
+[data-testid="stHeader"] {
+  background: rgb(246 244 238 / 92%);
+}
+
+[data-testid="stSidebar"] {
+  background: var(--surface);
+  border-right: 1px solid var(--line);
+}
+
+/* Conteneurs identifiés par une clé Streamlit */
+.st-key-intro {
+  max-width: 760px;
+  margin-bottom: 2rem;
+}
+
+[class*="st-key-book-card-"] {
+  padding: 1.5rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-large);
+  background: var(--surface);
+  box-shadow: var(--shadow);
+}
+
+/* Boutons */
+.stButton > button {
+  border-radius: 12px;
+  color: var(--surface);
+  background: var(--accent);
+  border: 1px solid var(--accent);
+}
+
+.stButton > button:hover {
+  color: var(--accent);
+  background: var(--accent-soft);
+  border-color: var(--accent);
+}
+
+/* Images dans les conteneurs */
+[class*="st-key-book-card-"] img {
+  border-radius: 18px;
+}
+
+
+
+/* =========================================================
+   1. CHARTE GRAPHIQUE — À PERSONNALISER POUR CHAQUE PROJET
+   ========================================================= */
+
+@import url("https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;500;600;700&display=swap");
+
+:root {
+    /* Couleurs principales de la marque */
+    --rose: #e6319b;
+    --rose-vif: #ff0066;
+    --bleu-principal: #6569c1;
+
+    /* Couleurs de texte */
+    --texte-principal: #333333;
+    --texte-secondaire: #6c757d;
+    --texte-inverse: #ffffff;
+
+    /* Couleurs de fond et de bordure */
+    --fond-page: #EFF0F8;
+    --fond-carte: #ffffff;
+    --fond-doux: #f8f9fa;
+    --bordure: #444444;
+
+    /* Couleurs fonctionnelles */
+    --succes: #28a745;
+    --information: #17a2b8;
+    --avertissement: #ffc107;
+    --danger: #dc3545;
+
+    /* Police principale et polices de secours */
+    --police-principale: "Comfortaa", sans-serif;
+    --police-secondaire: Arial, sans-serif;
+
+    /* Tailles de texte */
+    --taille-texte: 1rem;
+    --taille-petit: 0.875rem;
+    --taille-h1: clamp(2rem, 5vw, 3.5rem);
+    --taille-h2: clamp(1.6rem, 4vw, 2.5rem);
+    --taille-h3: clamp(1.25rem, 3vw, 1.75rem);
+
+    /* Espacements et formes */
+    --espace-xs: 0.5rem;
+    --espace-sm: 1rem;
+    --espace-md: 1.5rem;
+    --espace-lg: 2.5rem;
+    --espace-xl: 4rem;
+    --rayon-carte: 0.75rem;
+    --ombre-carte: 0 4px 18px rgb(0 0 0 / 10%);
+
+    /* Largeur maximale du contenu */
+    --largeur-contenu: 1200px;
+}
+
+
+/* =========================================================
+   2. RÈGLES GÉNÉRALES
+   ========================================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    /* Couleur du texte principal */
+    color: var(--texte-principal);
+
+    /* Taille et famille de police */
+    font-family: var(--police-principale);
+    font-size: var(--taille-texte);
+
+    /* Espacement et apparence générale */
+    line-height: 1.6;
+    margin: 0;
+    background-color: var(--fond-page);
+}
+
+.stApp,
+[data-testid="stAppViewContainer"] {
+  background-color: var(--fond-page);
+}
+
+.stApp,
+[data-testid="stAppViewContainer"] {
+  background-color: var(--fond-page);
+}
+
+img {
+    /* Les images ne débordent pas de leur conteneur */
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+.page-content {
+    /* Largeur et centrage du contenu principal */
+    width: min(100% - 2rem, var(--largeur-contenu));
+    margin-inline: auto;
+
+    /* Espacement haut et bas */
+    padding-block: var(--espace-lg);
+}
+
+
+/* =========================================================
+   3. EN-TÊTE, LOGO ET MENU DE NAVIGATION
+   ========================================================= */
+
+.site-header {
+    /* Positionnement : logo à gauche, navigation au centre,
+       bouton burger à droite */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--espace-md);
+
+    /* Dimensions et espacements */
+    width: 100%;
+    padding: var(--espace-sm) max(1rem, calc((100% - var(--largeur-contenu)) / 2));
+
+    /* Couleurs et séparation */
+    color: var(--texte-principal);
+    background-color: var(--fond-page);
+    border-bottom: 1px solid rgb(68 68 68 / 20%);
+
+    /* Le menu reste visible en haut lors du défilement */
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.st-key-site-header {
+    padding: 1rem 2rem;
+    background: var(--fond-page);
+    border-bottom: 1px solid var(--bordure);
+}
+
+.st-key-site-footer {
+    margin-top: 4rem;
+    padding: 2rem;
+    color: var(--texte-inverse);
+    background: var(--texte-principal);
+}
+
+.site-logo {
+    /* Le logo reste à gauche et garde une taille maîtrisée */
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.site-logo img {
+    width: 140px; /* Largeur du logo */
+    height: auto;
+}
+
+.site-nav {
+    /* Disposition horizontale des liens de navigation */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--espace-md);
+    margin-left: auto;
+}
+
+.site-nav a {
+    /* Apparence des liens du menu */
+    color: var(--texte-principal);
+    font-size: var(--taille-petit);
+    font-weight: 600;
+    text-decoration: none;
+    padding: 0.5rem 0;
+
+    /* Animation douce au survol */
+    transition: color 0.2s ease;
+}
+
+.site-nav a:hover,
+.site-nav a:focus-visible {
+    /* Couleur du lien au survol ou au clavier */
+    color: var(--rose-vif);
+}
+
+/* Bouton burger : son action doit être gérée par l'application */
+.site-menu-toggle {
+    /* Positionnement à droite du header */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    margin-left: var(--espace-sm);
+
+    /* Taille et apparence du bouton */
+    padding: 10px;
+    border: 0;
+    border-radius: 3px;
+    background: transparent;
+    cursor: pointer;
+}
+
+.site-menu-toggle span {
+    /* Apparence des trois lignes du burger */
+    display: block;
+    width: 24px;
+    height: 2px;
+    background-color: var(--texte-principal);
+}
+
+/* À ajouter au menu quand l'application l'ouvre sur mobile */
+.site-nav.is-open {
+    display: flex;
+}
+
+
+/* =========================================================
+   4. TITRES ET NIVEAUX DE TEXTE
+   ========================================================= */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    /* Police et couleur communes aux titres */
+    color: var(--texte-principal);
+    font-family: var(--police-principale);
+    font-weight: 700;
+    line-height: 1.2;
+
+    /* Pas de marge supérieure automatique */
+    margin-top: 0;
+}
+
+h1 {
+    /* Titre principal */
+    font-size: var(--taille-h1);
+    text-align: left;
+    margin-bottom: var(--espace-md);
+}
+
+h2 {
+    /* Titre de section */
+    font-size: var(--taille-h2);
+    margin-bottom: var(--espace-sm);
+}
+
+h3 {
+    /* Titre de sous-section ou de carte */
+    font-size: var(--taille-h3);
+    margin-bottom: var(--espace-sm);
+}
+
+p {
+    /* Texte courant */
+    color: var(--texte-principal);
+    font-size: var(--taille-texte);
+    font-weight: 400;
+    margin-top: 0;
+    margin-bottom: var(--espace-sm);
+}
+
+
+/* =========================================================
+   5. CONTENEURS DE TEXTE, CARTES ET IMAGES
+   ========================================================= */
+
+.text-container {
+    /* Couleur et taille du texte */
+    color: var(--texte-principal);
+    font-size: var(--taille-texte);
+    font-weight: 400;
+
+    /* Espacement intérieur et positionnement */
+    padding: var(--espace-md);
+    margin-bottom: var(--espace-md);
+    position: relative;
+}
+
+
+.card {
+    /* Fond et couleur d'une carte */
+    color: var(--texte-principal);
+    background-color: var(--fond-carte);
+
+    /* Bordure, coins arrondis et ombre */
+    border: 2px solid var(--bordure);
+    border-radius: var(--rayon-carte);
+    box-shadow: var(--ombre-carte);
+
+    /* Espacements */
+    padding: var(--espace-md);
+    margin-bottom: var(--espace-md);
+
+    /* Animation au survol */
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+    /* Effet au survol de la carte */
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgb(0 0 0 / 14%);
+}
+
+.image-container {
+    /* Conteneur permettant de positionner l'image */
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--rayon-carte);
+    margin-bottom: var(--espace-md);
+}
+
+.image-container img {
+    /* Image remplissant son conteneur */
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+
+/* =========================================================
+   6. LIENS, BOUTONS ET ÉTATS INTERACTIFS
+   ========================================================= */
+
+a {
+    /* Couleur et apparence des liens */
+    color: var(--bleu-principal);
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+}
+
+a:hover,
+a:focus-visible {
+    /* Couleur du lien au survol ou au clavier */
+    color: var(--rose-vif);
+}
+
+.button {
+    /* Texte du bouton */
+    color: var(--texte-inverse);
+    font-family: var(--police-principale);
+    font-size: 14px;
+    font-weight: 600;
+    text-align: center;
+    text-decoration: none;
+
+    /* Couleur et forme */
+    background-color: var(--bleu-principal);
+    padding: 8px 12px;
+    border: 0;
+    border-radius: 3px;
+
+    /* Positionnement et comportement */
+    display: inline-block;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.button:hover,
+.button:focus-visible {
+    /* Couleur et déplacement au survol ou au clavier */
+    color: var(--texte-inverse);
+    background-color: var(--rose);
+    transform: translateY(-1px);
+}
+
+.button:focus-visible,
+a:focus-visible,
+.site-menu-toggle:focus-visible {
+    /* Indicateur visible de navigation au clavier */
+    outline: 3px solid var(--rose-vif);
+    outline-offset: 3px;
+}
+
+
+/* =========================================================
+   7. PIED DE PAGE — LOGO, ADRESSE, LISTES ET CONTACT
+   ========================================================= */
+
+.site-footer {
+    /* Couleurs générales du pied de page */
+    color: var(--texte-inverse);
+    background-color: var(--texte-principal);
+
+    /* Espacement extérieur du contenu */
+    margin-top: var(--espace-xl);
+    padding: var(--espace-lg) max(1rem, calc((100% - var(--largeur-contenu)) / 2));
+}
+
+.footer-main {
+    /* Quatre colonnes : identité, deux listes, contact */
+    display: grid;
+    grid-template-columns: 1.3fr 1fr 1fr 1.2fr;
+    gap: var(--espace-lg);
+    padding-bottom: var(--espace-lg);
+}
+
+.footer-brand img {
+    /* Taille et marge du logo */
+    width: 140px;
+    height: auto;
+    margin-bottom: var(--espace-sm);
+}
+
+.footer-brand p,
+.footer-contact p {
+    /* Texte de l'adresse et des informations pratiques */
+    color: var(--texte-inverse);
+    font-size: var(--taille-petit);
+    margin-bottom: var(--espace-xs);
+}
+
+.footer-column h2,
+.footer-column h3,
+.footer-contact h2,
+.footer-contact h3 {
+    /* Titres des colonnes du footer */
+    color: var(--texte-inverse);
+    font-size: 1rem;
+    margin-bottom: var(--espace-sm);
+}
+
+.footer-column ul {
+    /* Retrait de la liste à puces par défaut */
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.footer-column li {
+    /* Espacement entre les liens de liste */
+    margin-bottom: var(--espace-xs);
+}
+
+.site-footer a {
+    /* Liens du footer */
+    color: var(--texte-inverse);
+    font-size: var(--taille-petit);
+    text-decoration: none;
+}
+
+.site-footer a:hover,
+.site-footer a:focus-visible {
+    /* Couleur des liens au survol */
+    color: var(--rose);
+    text-decoration: underline;
+}
+
+/* Ligne du bas : réseaux sociaux à gauche, mentions légales à droite */
+.footer-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--espace-md);
+
+    border-top: 1px solid rgb(255 255 255 / 30%);
+    padding-top: var(--espace-sm);
+}
+
+.footer-social {
+    /* Logos de réseaux sociaux alignés à gauche */
+    display: flex;
+    align-items: center;
+    gap: var(--espace-sm);
+}
+
+.footer-social a {
+    /* Taille des zones cliquables des réseaux */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 36px;
+    min-height: 36px;
+}
+
+.footer-legal {
+    /* Liens copyright et conditions générales de vente */
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--espace-md);
+}
+
+
+/* =========================================================
+   8. ADAPTATION AUX ÉCRANS PLUS PETITS
+   ========================================================= */
+
+/* Tablettes et petits ordinateurs */
+@media (max-width: 992px) {
+    .footer-main {
+        /* Les colonnes du footer passent sur deux colonnes */
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .site-nav {
+        gap: var(--espace-sm);
+    }
+}
+
+/* Téléphones */
+@media (max-width: 768px) {
+    .site-header {
+        /* Le logo reste à gauche et le burger à droite */
+        flex-wrap: wrap;
+        padding: var(--espace-sm) 1rem;
+    }
+
+    .site-nav {
+        /* Menu masqué par défaut : l'application doit le rendre visible */
+        display: none;
+        flex-basis: 100%;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0;
+        margin-left: 0;
+    }
+
+    .site-nav.is-open {
+        /* Menu affiché lorsque la classe is-open est ajoutée */
+        display: flex;
+    }
+
+    .site-nav a {
+        /* Liens du menu disposés sur toute la largeur */
+        width: 100%;
+        padding: 0.75rem 0;
+        border-top: 1px solid rgb(68 68 68 / 15%);
+    }
+
+    .footer-main {
+        /* Colonnes du footer empilées sur mobile */
+        grid-template-columns: 1fr;
+        gap: var(--espace-md);
+    }
+
+    .footer-bottom {
+        /* Réseaux sociaux et liens légaux empilés */
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .footer-legal {
+        flex-direction: column;
+        gap: var(--espace-xs);
+    }
+
+    .page-content {
+        /* Espacement réduit sur petit écran */
+        width: min(100% - 1.25rem, var(--largeur-contenu));
+        padding-block: var(--espace-md);
+    }
+}
+
+/* Réduction des animations si l'utilisateur l'a demandée dans son système */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+    }
+}
+
+/* Landing page: layout original inspire d'un site vitrine */
+.stApp,
+[data-testid="stAppViewContainer"],
+[data-testid="stMain"] {
+    background: var(--fond-page);
+    color: var(--texte-principal);
+}
+
+.main .block-container {
+    max-width: 1240px;
+    padding: 1.5rem clamp(1rem, 5vw, 4rem) 4rem;
+}
+
+.st-key-landing-header {
+    padding: 0.75rem 0;
+    border-bottom: 1px solid rgb(51 51 51 / 15%);
+}
+
+.st-key-landing-header a {
+    color: var(--texte-principal);
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+
+.st-key-landing-hero {
+    margin: 1.5rem 0 4rem;
+    padding: clamp(2rem, 7vw, 5.5rem);
+    border-radius: 1.25rem;
+    background: linear-gradient(125deg, #e9eaf5 0%, #f7f4f0 100%);
+}
+
+.st-key-landing-hero h1 {
+    max-width: 760px;
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    line-height: 1.08;
+    color: var(--texte-principal);
+}
+
+.st-key-landing-hero p,
+.st-key-landing-intro p {
+    max-width: 680px;
+    color: var(--texte-secondaire);
+    line-height: 1.8;
+}
+
+.st-key-landing-image1,
+.st-key-landing-image2,
+.st-key-landing-image3,
+.st-key-landing-image4 {
+    width: 100%;
+    height: clamp(14rem, 32vw, 28rem);
+    object-fit: cover;
+    object-position: center;
+    display: grid;
+    place-items: center;
+    border: 1px dashed rgb(239 240 248 / 35%);
+    border-radius: 1rem;
+    color: var(--texte-secondaire);
+    background: rgb(239 240 248 / 55%);
+    font-size: 1.25rem;
+    font-weight: 700;
+}
+
+
+.st-key-landing-intro {
+    margin: 0 0 5rem;
+    padding: 1rem 0;
+}
+
+.st-key-landing-feature-01,
+.st-key-landing-feature-02,
+.st-key-landing-feature-03,
+.st-key-landing-case-image3,
+.st-key-landing-case-image4 {
+    height: 100%;
+    padding: 1.75rem;
+    border: 1px solid rgb(51 51 51 / 12%);
+    border-radius: 1rem;
+    background: var(--fond-carte);
+    box-shadow: var(--ombre-carte);
+}
+
+.st-key-landing-feature-01 p:first-child,
+.st-key-landing-feature-02 p:first-child,
+.st-key-landing-feature-03 p:first-child {
+    color: var(--rose-vif);
+    font-weight: 700;
+}
+
+.st-key-landing-case-image3,
+.st-key-landing-case-image4 {
+    margin-top: 1.5rem;
+}
+
+.st-key-landing-contact {
+    margin-top: 4rem;
+    padding: clamp(2rem, 6vw, 4rem);
+    border-radius: 1.25rem;
+    color: var(--texte-inverse);
+    background: var(--texte-principal);
+}
+
+.st-key-landing-contact h2,
+.st-key-landing-contact p {
+    color: var(--texte-inverse);
+}
+
+.st-key-landing-footer {
+    margin-top: 2rem;
+    padding: 1.5rem 0;
+    border-top: 1px solid rgb(51 51 51 / 15%);
+}
+
+@media (max-width: 760px) {
+    .st-key-landing-hero {
+        margin-top: 1rem;
+        padding: 1.5rem;
+    }
+
+    .st-key-landing-image1,
+    .st-key-landing-image2,
+    .st-key-landing-image3,
+    .st-key-landing-image4 {
+        min-height: 220px;
+    }
+}
