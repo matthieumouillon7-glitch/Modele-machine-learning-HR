@@ -21,8 +21,8 @@ with st.container(key="landing-header"):
             "[Notre approche](#notre-approche)　"
             "[Comment ça marche](#comment-ca-marche)"
         )
-with st.container(border=bool, key=None, width="stretch", height="stretch", horizontal=bool, wrap=bool, horizontal_alignment="center", vertical_alignment="top", gap="small", autoscroll=None):
-    col1, col2 = st.columns([1, 1], vertical_alignment="center")
+with st.container():
+    col1, col2 = st.columns(2, vertical_alignment="center")
     with col1:
             st.page_link("pages/Login.py", label="Connexion", icon=":material/login:")
     with col2:
