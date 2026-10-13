@@ -11,3 +11,31 @@
 
 #**Utilisation** 🛠️
 #Ce modèle permet de **prédire** la possibilité d'une **absence** pour une personne donnée, en fonction de son âge, de son équipe d'appartenance et de son ancienneté à partir des données passées. Pour cela il vous suffit de l'importer et de modifier les paramètres
+
+## Application Streamlit
+
+L'application météo se trouve dans `streamlit/`. Pour la lancer en local :
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+cp .streamlit/secrets.toml.example .streamlit/secrets.toml
+```
+
+Complétez ensuite `.streamlit/secrets.toml` avec les identifiants OAuth Google
+et Snowflake (ce fichier est ignoré par Git), puis lancez :
+
+```bash
+streamlit run streamlit/Landing.page.py
+```
+
+Dans les identifiants OAuth de Google, configurez l'URI de redirection
+locale `http://localhost:8501/oauth2callback`. Remplacez-la par l'URL publique
+de l'application lors du déploiement.
+
+Avant le premier enregistrement de profil, exécutez
+`streamlit/sql/create_user_profiles.sql` dans Snowflake. Le rôle de l'application
+doit pouvoir utiliser le warehouse et lire, insérer et mettre à jour
+`SF_TUTS.PUBLIC.USER_PROFILES`. Il est préférable d'utiliser un rôle applicatif
+dédié plutôt qu'un rôle d'administration.

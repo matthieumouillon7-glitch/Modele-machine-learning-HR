@@ -21,6 +21,7 @@ with st.container(key="landing-header"):
             "[Notre approche](#notre-approche)　"
             "[Comment ça marche](#comment-ca-marche)"
         )
+        st.page_link("pages/Login.py", label="Connexion", icon=":material/login:")
         st.page_link("pages/Contact.py", label="Contact", icon=":material/mail:")
 
 with st.container(key="landing-hero"):
@@ -88,6 +89,7 @@ for column, (number, title, description) in zip(feature_columns, features):
 st.markdown('<span id="notre-approche"></span>', unsafe_allow_html=True)
 st.markdown("**EXEMPLES DE PROJETS**")
 st.header("Une expérience pensée pour les futurs mariés")
+
 
 case_columns = st.columns(2)
 cases = [

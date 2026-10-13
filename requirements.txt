@@ -1,0 +1,2 @@
+streamlit[auth]>=1.42
+snowflake-connector-python>=3.12
