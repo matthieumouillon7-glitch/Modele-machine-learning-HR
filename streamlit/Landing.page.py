@@ -45,8 +45,7 @@ with st.container(key="landing-hero"):
                 caption="useful tools",
             )
 
-st.page_link("pages/Modele_interact"
-        )
+
 
 with st.container(key="landing-intro"):
     image_col, copy_col = st.columns([0.85, 1.15], vertical_alignment="center")
