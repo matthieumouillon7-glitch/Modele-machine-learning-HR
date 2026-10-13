@@ -20,11 +20,18 @@ L'application météo se trouve dans `streamlit/`. Pour la lancer en local :
 python3 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
-cp .streamlit/secrets.toml.example .streamlit/secrets.toml
+mkdir -p .streamlit
 ```
 
-Complétez ensuite `.streamlit/secrets.toml` avec les identifiants OAuth Google
-et Snowflake (ce fichier est ignoré par Git), puis lancez :
+Créez `.streamlit/secrets.toml` à la racine du projet avec les identifiants
+OAuth Google, Snowflake et la clé OpenAI (ce fichier est ignoré par Git).
+Pour le chat, ajoutez notamment :
+
+```toml
+OPENAI_API_KEY = "votre-cle-api"
+```
+
+Puis lancez :
 
 ```bash
 streamlit run streamlit/Landing.page.py

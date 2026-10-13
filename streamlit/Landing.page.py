@@ -33,7 +33,12 @@ with st.container(key="landing-hero"):
             "Explorez les tendances météo de votre lieu de mariage et préparez "
             "votre journée avec un regard éclairé par les données."
         )
-        st.link_button("Découvrir l’approche", "#notre-approche")
+        st.page_link(
+            "pages/Modele_interact.py",
+            label="Averse_prédiction",
+            type="primary",
+        )
+
     with image_col:
         with st.container(key="landing-image1"):
             st.image(
@@ -112,7 +117,7 @@ with st.container(key="landing-contact"):
         "Cette page est une première maquette. Les analyses et les sources "
         "de données seront précisées au fil du projet."
     )
-    st.button("En savoir plus")
+
 
 with st.container(key="landing-footer"):
     st.markdown("**MON MARIAGE · MÉTÉO**")
