@@ -33,11 +33,7 @@ with st.container(key="landing-hero"):
             "Explorez les tendances météo de votre lieu de mariage et préparez "
             "votre journée avec un regard éclairé par les données."
         )
-        # st.page_link(
-        #     "/home/matthieumouillon/projects/app-streamlit/streamlit/pages/Modele_interact.py",
-        #     label="Averse_prédiction",
-        #     type="primary",
-        # )
+      
 
     with image_col:
         with st.container(key="landing-image1"):
@@ -48,6 +44,9 @@ with st.container(key="landing-hero"):
                 width=500,
                 caption="useful tools",
             )
+
+st.page_link("pages/Modele_interact"
+        )
 
 with st.container(key="landing-intro"):
     image_col, copy_col = st.columns([0.85, 1.15], vertical_alignment="center")
