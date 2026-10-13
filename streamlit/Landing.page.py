@@ -34,7 +34,7 @@ with st.container(key="landing-hero"):
             "votre journée avec un regard éclairé par les données."
         )
         st.page_link(
-            "pages/Modele_interact.py",
+            "/home/matthieumouillon/projects/app-streamlit/streamlit/pages/Modele_interact.py",
             label="Averse_prédiction",
             type="primary",
         )
