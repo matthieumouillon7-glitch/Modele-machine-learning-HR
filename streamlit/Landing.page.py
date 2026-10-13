@@ -21,8 +21,12 @@ with st.container(key="landing-header"):
             "[Notre approche](#notre-approche)　"
             "[Comment ça marche](#comment-ca-marche)"
         )
-        st.page_link("pages/Login.py", label="Connexion", icon=":material/login:")
-        st.page_link("pages/Contact.py", label="Contact", icon=":material/mail:")
+with st.container(key="landing-header"):
+    col1, co2 = st.columns([1, 1], vertical_alignment="center")
+    with co1:
+            st.page_link("pages/Login.py", label="Connexion", icon=":material/login:")
+    with col2:
+            st.page_link("pages/Contact.py", label="Contact", icon=":material/mail:")
 
 with st.container(key="landing-hero"):
     copy_col, image_col = st.columns([1.15, 0.85], vertical_alignment="center")
