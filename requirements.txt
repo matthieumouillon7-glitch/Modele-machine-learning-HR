@@ -1,3 +1,9 @@
 streamlit[auth]>=1.42
 snowflake-connector-python>=3.12
 openai>=1.0
+fastapi>=0.115
+uvicorn>=0.30
+pandas>=2.2
+joblib>=1.4
+scikit-learn==1.6.1
+requests>=2.32,<3

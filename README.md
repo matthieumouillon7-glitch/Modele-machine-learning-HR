@@ -26,3 +26,26 @@ source .venv/bin/activate
 pip install -r requirements.txt
 mkdir -p .streamlit
 streamlit run streamlit/Landing.page.py
+```
+
+### API de prédiction météo
+
+Le notebook `streamlit/Modèle/model_interaction.ipynb` entraîne le préprocesseur
+et le modèle, puis les sauvegarde ensemble dans
+`streamlit/Modèle/weather_artifacts.joblib`. Depuis la racine du projet, lancez
+l'API avec :
+
+```bash
+uvicorn main:app --app-dir .streamlit/api --reload
+```
+
+La documentation interactive et l'essai des endpoints sont disponibles à
+`http://127.0.0.1:8000/docs`. Le endpoint `POST /predict` attend les 15 variables
+utilisées à l'entraînement, dont `RainToday` (0 ou 1).
+
+Pour construire et lancer l'image Docker depuis la racine du projet :
+
+```bash
+docker build -t weather-api .
+docker run --rm -p 8080:8080 weather-api
+```
