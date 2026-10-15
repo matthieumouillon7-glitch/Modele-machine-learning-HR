@@ -29,7 +29,7 @@ st.caption(
 )
 
 with st.form("weather_prediction"):
-    st.subheader("Températures")
+    st.subheader("pluviométrie estimée")
     temp_col1, temp_col2 = st.columns(2)
     with temp_col1:
         min_temp = st.number_input(
