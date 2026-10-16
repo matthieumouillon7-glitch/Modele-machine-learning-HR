@@ -36,15 +36,18 @@ if not issuer or not subject:
 email = st.user.get("email") or st.user.get("preferred_username", "")
 with st.form("profile"):
     st.subheader("Votre profil")
+    company_name = st.text_input(
+        "Entreprise", value=st.user.get("entreprise_name", "")
+    )
+    name = st.text_input("Nom", value=st.user.get("family_name", ""))
     first_name = st.text_input("Prénom", value=st.user.get("given_name", ""))
-    last_name = st.text_input("Nom", value=st.user.get("family_name", ""))
     profile_email = st.text_input("E-mail", value=email)
     phone = st.text_input("Téléphone")
     submitted = st.form_submit_button("Enregistrer le profil", type="primary")
 
 if submitted:
-    if not first_name.strip() or not last_name.strip():
-        st.error("Veuillez renseigner votre prénom et votre nom.")
+    if not company_name.strip() or not first_name.strip() or not name.strip():
+        st.error("Veuillez renseigner l'entreprise, votre prénom et votre nom.")
         st.stop()
     if "@" not in profile_email or not phone.strip():
         st.error("Veuillez renseigner un e-mail valide et un numéro de téléphone.")
@@ -89,45 +92,49 @@ if submitted:
         cursor = connection.cursor()
         cursor.execute(
             """
-            MERGE INTO USER_PROFILES AS target
+            MERGE INTO APP_DB.REGISTRATION.REGISTER AS target
             USING (
                 SELECT
                     %s AS OIDC_ISSUER,
                     %s AS OIDC_SUBJECT,
-                    %s AS FIRST_NAME,
+                    %s AS COMPANY_NAME,
                     %s AS LAST_NAME,
+                    %s AS FIRST_NAME,
                     %s AS EMAIL,
-                    %s AS PHONE
+                    %s AS TELEPHONE
             ) AS source
             ON target.OIDC_ISSUER = source.OIDC_ISSUER
                 AND target.OIDC_SUBJECT = source.OIDC_SUBJECT
             WHEN MATCHED THEN UPDATE SET
+                COMPANY_NAME = source.COMPANY_NAME,
+                NAME = source.LAST_NAME,
                 FIRST_NAME = source.FIRST_NAME,
-                LAST_NAME = source.LAST_NAME,
                 EMAIL = source.EMAIL,
-                PHONE = source.PHONE,
-                UPDATED_AT = CURRENT_TIMESTAMP()
+                TELEPHONE = source.TELEPHONE
             WHEN NOT MATCHED THEN INSERT (
                 OIDC_ISSUER,
                 OIDC_SUBJECT,
+                COMPANY_NAME,
+                NAME,
                 FIRST_NAME,
-                LAST_NAME,
                 EMAIL,
-                PHONE
+                TELEPHONE
             ) VALUES (
                 source.OIDC_ISSUER,
                 source.OIDC_SUBJECT,
-                source.FIRST_NAME,
+                source.COMPANY_NAME,
                 source.LAST_NAME,
+                source.FIRST_NAME,
                 source.EMAIL,
-                source.PHONE
+                source.TELEPHONE
             )
             """,
             (
                 issuer,
                 subject,
+                company_name.strip(),
+                name.strip(),
                 first_name.strip(),
-                last_name.strip(),
                 profile_email.strip(),
                 phone.strip(),
             ),
