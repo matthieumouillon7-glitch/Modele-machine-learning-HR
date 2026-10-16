@@ -13,20 +13,21 @@ css = Path(__file__).with_name("style.css").read_text(encoding="utf-8")
 st.markdown(f"<style>{css}</style>", unsafe_allow_html=True)
 
 with st.container(key="landing-header"):
-    brand_col, nav_col = st.columns([1, 2], vertical_alignment="center")
+    brand_col, nav_col = st.columns([1, 4], vertical_alignment="center")
     with brand_col:
-        st.markdown("**MON MARIAGE · MÉTÉO**")
+        st.image(Path(__file__).parent / "images" / "logo1.svg", width=100)
     with nav_col:
-        st.markdown(
-            "[Notre approche](#notre-approche)　"
-            "[Comment ça marche](#comment-ca-marche)"
-        )
-# with st.container():
-#     col1, col2 = st.columns(2, vertical_alignment="center")
-#     with col1:
-#             st.page_link("pages/Contact.py", label="Connexion", icon=":material/login:")
-#     with col2:
-#             st.page_link("pages/Contact.py", label="Contact", icon=":material/mail:")
+        nav_links = st.columns(5, vertical_alignment="center")
+        with nav_links[0]:
+            st.page_link("pages/Login.py", label="Inscription")
+        with nav_links[1]:
+            st.page_link("pages/Contact.py", label="Contact")
+        with nav_links[2]:
+            st.page_link("pages/Model_manual.py", label="Modèle météo")
+        with nav_links[3]:
+            st.markdown("[Notre approche](#notre-approche)")
+        with nav_links[4]:
+            st.markdown("[Comment ça marche](#comment-ca-marche)")
 
 with st.container(key="landing-hero"):
     copy_col, image_col = st.columns([1.15, 0.85], vertical_alignment="center")

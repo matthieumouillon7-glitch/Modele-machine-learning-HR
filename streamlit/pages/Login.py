@@ -12,36 +12,14 @@ css = Path(__file__).resolve().parents[1].joinpath("style.css").read_text(
 )
 st.markdown(f"<style>{css}</style>", unsafe_allow_html=True)
 
-st.title("Connexion")
+st.title("Inscription")
 
-if not st.user.is_logged_in:
-    st.write("Connectez-vous avec votre compte pour créer votre profil.")
-    if st.button("Se connecter avec votre compte", type="primary"):
-        st.login("google")
-    st.stop()
-
-if st.button("Se déconnecter"):
-    st.logout()
-    st.stop()
-
-issuer = st.user.get("iss", "")
-subject = st.user.get("sub", "")
-if not issuer or not subject:
-    st.error(
-        "Google n'a pas fourni les identifiants OIDC nécessaires. "
-        "Vérifiez les revendications configurées pour l'application."
-    )
-    st.stop()
-
-email = st.user.get("email") or st.user.get("preferred_username", "")
 with st.form("profile"):
-    st.subheader("Votre profil")
-    company_name = st.text_input(
-        "Entreprise", value=st.user.get("entreprise_name", "")
-    )
-    name = st.text_input("Nom", value=st.user.get("family_name", ""))
-    first_name = st.text_input("Prénom", value=st.user.get("given_name", ""))
-    profile_email = st.text_input("E-mail", value=email)
+    st.subheader("Vos coordonnées")
+    company_name = st.text_input("Entreprise")
+    name = st.text_input("Nom")
+    first_name = st.text_input("Prénom")
+    profile_email = st.text_input("E-mail")
     phone = st.text_input("Téléphone")
     submitted = st.form_submit_button("Enregistrer le profil", type="primary")
 
@@ -92,46 +70,15 @@ if submitted:
         cursor = connection.cursor()
         cursor.execute(
             """
-            MERGE INTO APP_DB.REGISTRATION.REGISTER AS target
-            USING (
-                SELECT
-                    %s AS OIDC_ISSUER,
-                    %s AS OIDC_SUBJECT,
-                    %s AS COMPANY_NAME,
-                    %s AS LAST_NAME,
-                    %s AS FIRST_NAME,
-                    %s AS EMAIL,
-                    %s AS TELEPHONE
-            ) AS source
-            ON target.OIDC_ISSUER = source.OIDC_ISSUER
-                AND target.OIDC_SUBJECT = source.OIDC_SUBJECT
-            WHEN MATCHED THEN UPDATE SET
-                COMPANY_NAME = source.COMPANY_NAME,
-                NAME = source.LAST_NAME,
-                FIRST_NAME = source.FIRST_NAME,
-                EMAIL = source.EMAIL,
-                TELEPHONE = source.TELEPHONE
-            WHEN NOT MATCHED THEN INSERT (
-                OIDC_ISSUER,
-                OIDC_SUBJECT,
+            INSERT INTO APP_DB.REGISTRATION.REGISTER (
                 COMPANY_NAME,
                 NAME,
                 FIRST_NAME,
                 EMAIL,
                 TELEPHONE
-            ) VALUES (
-                source.OIDC_ISSUER,
-                source.OIDC_SUBJECT,
-                source.COMPANY_NAME,
-                source.LAST_NAME,
-                source.FIRST_NAME,
-                source.EMAIL,
-                source.TELEPHONE
-            )
+            ) VALUES (%s, %s, %s, %s, %s)
             """,
             (
-                issuer,
-                subject,
                 company_name.strip(),
                 name.strip(),
                 first_name.strip(),
