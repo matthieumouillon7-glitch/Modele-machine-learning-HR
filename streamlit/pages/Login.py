@@ -1,6 +1,5 @@
 import logging
 from pathlib import Path
-
 import snowflake.connector
 import streamlit as st
 from snowflake.connector.errors import Error as SnowflakeError
