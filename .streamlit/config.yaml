@@ -1,2 +1,2 @@
 [app]
-location = "streamlit/Accueil.py"
+location = "Accueil.py"
