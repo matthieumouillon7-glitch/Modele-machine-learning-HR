@@ -1,68 +1,40 @@
 import joblib
 import pandas as pd
 from fastapi import FastAPI
-from pydantic import BaseModel, Field
+from pydantic import BaseModel
+from datetime import date
 from pathlib import Path
-
 
 app = FastAPI()
 
-
-class WeatherInput(BaseModel):
-    NUM_POSTE: int
-    ds: date
-    # Rainfall: float
-    # Evaporation: float
-    # Sunshine: float
-    # WindGustSpeed: float
-    # WindSpeed9am: float
-    # Humidity3pm: float
-    # Pressure9am: float
-    # Pressure3pm: float
-    # Cloud9am: float
-    # Cloud3pm: float
-    # Temp9am: float
-    # Temp3pm: float
-    # RainToday: int = Field(ge=0, le=1)
-
-
-# Le dossier contenant main.py est .streamlit/api. __file__ est une variable spéciale 
-# fournie par Python. Elle contient le chemin du fichier qui est en train de s’exécuter. 
-# Ici, c’est main.py
 api_folder = Path(__file__).parent
-# En remontant de deux dossiers, on revient à la racine du projet.
 project_folder = api_folder.parent.parent
-# Depuis la racine, on rejoint le **dossier** qui contient le modèle sauvegardé.
-artifacts_path = (
-    project_folder
-    / "streamlit"
-    / "Modèle"
-    / "weather_artifacts.joblib"
-)
+artifacts_path = project_folder / "streamlit" / "Modèle" / "weather_artifacts.joblib"
+
 artifacts = joblib.load(artifacts_path)
-preprocessor = artifacts["preprocessor"]
-model = artifacts["model"]
+model = artifacts["model"]  # ✅ SEULEMENT ce qui existe
 
-
-@app.get("/")
-def read_root():
-    return {"message": "Weather prediction API is running"}
-
-
-from datetime import date
+class PredictionInput(BaseModel):
+    nom_usuel: str
+    ds: date
 
 @app.post("/predict")
-def predict(data: WeatherInput):
-    future = pd.DataFrame({
-        "ds": [pd.Timestamp(data.ds)]
-    })
-
+def predict(data: PredictionInput):
+    future = pd.DataFrame({"ds": [pd.Timestamp(data.ds)]})
     forecast = model.predict(future).iloc[0]
-
     return {
-        "NUM_POSTE": data.NUM_POSTE,
-        "ds": data.ds,
+        "nom_usuel": data.nom_usuel,  # ✅ Minuscules
+        "ds": data.ds.isoformat(),
         "yhat": float(forecast["yhat"]),
         "yhat_lower": float(forecast["yhat_lower"]),
         "yhat_upper": float(forecast["yhat_upper"]),
     }
+    
+# NOTES
+# docker rm -f weather-api-container
+# docker build -t weather-api .
+# docker run -p 8080:8080 -d --name weather-api-container weather-api
+# -t Tag : Nom de l'image
+# -p Port ex 8080:8080
+#-d #Detached : Mode arrière-plan
+  

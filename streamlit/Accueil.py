@@ -23,7 +23,7 @@ with st.container(key="landing-header"):
         with nav_links[1]:
             st.page_link("pages/Contact.py", label="Contact")
         with nav_links[2]:
-            st.page_link("pages/Model_manual.py", label="Modèle météo")
+            st.page_link("pages/Modèle_météo.py", label="Modèle météo")
         with nav_links[3]:
             st.markdown("[Notre approche](#notre-approche)")
         with nav_links[4]:

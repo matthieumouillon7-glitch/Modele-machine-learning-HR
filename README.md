@@ -25,7 +25,7 @@ python3 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
 mkdir -p .streamlit
-streamlit run streamlit/Landing.page.py
+streamlit run streamlit/Accueil.py
 ```
 
 ### API de prédiction météo
